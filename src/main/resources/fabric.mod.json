@@ -3,15 +3,15 @@
 	"id": "synapse",
 	"version": "${version}",
 	"name": "Synapse",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Vanilla-like redstone enhancement/overhaul mod for Fabric.",
 	"authors": [
-		"Me!"
+		"lthoerner"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://code.lthoerner.com/synapse",
+		"sources": "https://code.lthoerner.com/synapse"
 	},
-	"license": "MMPLv2",
+	"license": "GPLv3",
 	"icon": "assets/synapse/icon.png",
 	"environment": "*",
 	"entrypoints": {
