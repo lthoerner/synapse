@@ -18,6 +18,9 @@
 		"main": [
 			"com.lthoerner.synapse.Synapse"
 		],
+		"client": [
+			"com.lthoerner.synapse.SynapseClient"
+		],
 		"fabric-datagen": [
 			"com.lthoerner.synapse.SynapseDataGenerator"
 		]
