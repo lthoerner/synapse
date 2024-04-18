@@ -1,0 +1,15 @@
+{
+  "type": "crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "redstone_torch"
+    },
+    {
+      "item": "amethyst_shard"
+    }
+  ],
+  "result": {
+    "item": "synapse:calibrated_redstone_torch"
+  }
+}

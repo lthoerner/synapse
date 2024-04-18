@@ -109,6 +109,7 @@ class CalibratedRedstoneWallTorch extends WallRedstoneTorchBlock {
 
 class Utility {
     protected static ActionResult calibratedRedstoneTorchUseHandler(BlockState state, World world, BlockPos pos) {
+        // TODO: Consider preventing calibration while torch is unpowered
         if (world.isClient) {
             return ActionResult.SUCCESS;
         }
