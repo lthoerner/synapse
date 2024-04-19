@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "synapse:block/calibrated_redstone_block"
+    }
+  }
+}

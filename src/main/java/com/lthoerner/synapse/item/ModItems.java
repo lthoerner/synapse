@@ -16,18 +16,24 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 
 public class ModItems {
-    public static final Item CALIBRATED_REDSTONE_TORCH = Registry.register(Registries.ITEM, new Identifier(Synapse.MOD_ID, "calibrated_redstone_torch"), new VerticallyAttachableBlockItem(ModBlocks.CALIBRATED_REDSTONE_TORCH, ModBlocks.CALIBRATED_REDSTONE_WALL_TORCH, new FabricItemSettings(), Direction.DOWN));
+    public static final Item CALIBRATED_REDSTONE_BLOCK = registerBlockItem("calibrated_redstone_block", ModBlocks.CALIBRATED_REDSTONE_BLOCK);
+    public static final Item CALIBRATED_REDSTONE_TORCH = registerVerticallyAttachableBlockItem("calibrated_redstone_torch", ModBlocks.CALIBRATED_REDSTONE_TORCH, ModBlocks.CALIBRATED_REDSTONE_WALL_TORCH);
 
     private static void registerItemGroups(FabricItemGroupEntries entries) {
+        entries.add(CALIBRATED_REDSTONE_BLOCK);
         entries.add(CALIBRATED_REDSTONE_TORCH);
+    }
+
+    private static Item registerItem(String name, Item item) {
+        return Registry.register(Registries.ITEM, new Identifier(Synapse.MOD_ID, name), item);
     }
 
     private static Item registerBlockItem(String name, Block block) {
         return Registry.register(Registries.ITEM, new Identifier(Synapse.MOD_ID, name), new BlockItem(block, new FabricItemSettings()));
     }
 
-    private static Item registerItem(String name, Item item) {
-        return Registry.register(Registries.ITEM, new Identifier(Synapse.MOD_ID, name), item);
+    private static Item registerVerticallyAttachableBlockItem(String name, Block block, Block verticallyAttachableBlock) {
+        return Registry.register(Registries.ITEM, new Identifier(Synapse.MOD_ID, name), new VerticallyAttachableBlockItem(block, verticallyAttachableBlock, new FabricItemSettings(), Direction.DOWN));
     }
 
     public static void registerModItems() {

@@ -23,10 +23,12 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class ModBlocks {
+    public static final Block CALIBRATED_REDSTONE_BLOCK = registerBlock("calibrated_redstone_block", new CalibratedRedstoneBlock());
     public static final Block CALIBRATED_REDSTONE_TORCH = registerBlock("calibrated_redstone_torch", new CalibratedRedstoneTorch());
     public static final Block CALIBRATED_REDSTONE_WALL_TORCH = registerBlock("calibrated_redstone_wall_torch", new CalibratedRedstoneWallTorch());
 
-    private static void registerBlockGroups(FabricItemGroupEntries entries) {
+    private static void addBlocks(FabricItemGroupEntries entries) {
+        entries.add(CALIBRATED_REDSTONE_BLOCK);
         entries.add(CALIBRATED_REDSTONE_TORCH);
         entries.add(CALIBRATED_REDSTONE_WALL_TORCH);
     }
@@ -37,8 +39,38 @@ public class ModBlocks {
 
     public static void registerModBlocks() {
         Synapse.LOGGER.info("Registering Synapse blocks");
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(ModBlocks::registerBlockGroups);
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(ModBlocks::registerBlockGroups);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(ModBlocks::addBlocks);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(ModBlocks::addBlocks);
+    }
+}
+
+class CalibratedRedstoneBlock extends RedstoneBlock {
+    public CalibratedRedstoneBlock() {
+        super(FabricBlockSettings.copyOf(Blocks.REDSTONE_BLOCK));
+        setDefaultState(getDefaultState().with(Properties.POWER, 1));
+    }
+
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        builder.add(Properties.POWER);
+    }
+
+    @Override
+    public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
+        return state.get(Properties.POWER);
+    }
+
+    @Override
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (world.isClient) {
+            return ActionResult.SUCCESS;
+        }
+
+        state = state.cycle(Properties.POWER);
+        world.setBlockState(pos, state, Block.NOTIFY_ALL);
+        world.playSoundAtBlockCenter(pos, SoundEvents.BLOCK_NOTE_BLOCK_COW_BELL.value(), SoundCategory.BLOCKS, 0.5f, 0.5f, false);
+
+        return ActionResult.SUCCESS;
     }
 }
 
@@ -116,7 +148,6 @@ class Utility {
 
         // The LIT property is not cycled here because it is handled by the `shouldUnpower` methods.
         state = state.cycle(Properties.POWER);
-
         world.setBlockState(pos, state, Block.NOTIFY_ALL);
         world.playSoundAtBlockCenter(pos, SoundEvents.BLOCK_NOTE_BLOCK_COW_BELL.value(), SoundCategory.BLOCKS, 0.5f, 0.5f, true);
 
