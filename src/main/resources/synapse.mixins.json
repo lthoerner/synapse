@@ -3,7 +3,7 @@
 	"package": "com.lthoerner.synapse.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"ExampleMixin"
+      "ItemsMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
