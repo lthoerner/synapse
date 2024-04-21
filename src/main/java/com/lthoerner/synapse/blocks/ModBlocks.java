@@ -32,7 +32,7 @@ public class ModBlocks {
 class CalibratedRedstoneBlock extends RedstoneBlock {
     public CalibratedRedstoneBlock() {
         super(FabricBlockSettings.copyOf(Blocks.REDSTONE_BLOCK));
-        setDefaultState(getDefaultState().with(Properties.POWER, 1));
+        setDefaultState(getDefaultState().with(Properties.POWER, 15));
     }
 
     @Override
@@ -54,7 +54,7 @@ class CalibratedRedstoneBlock extends RedstoneBlock {
 class CalibratedRedstoneTorch extends RedstoneTorchBlock {
     public CalibratedRedstoneTorch() {
         super(FabricBlockSettings.copyOf(Blocks.REDSTONE_TORCH).luminance(Utility::getCalibratedRedstoneTorchLightLevel));
-        setDefaultState(getDefaultState().with(Properties.POWER, 1));
+        setDefaultState(getDefaultState().with(Properties.POWER, 15));
     }
 
     @Override
@@ -86,7 +86,7 @@ class CalibratedRedstoneTorch extends RedstoneTorchBlock {
 class CalibratedRedstoneWallTorch extends WallRedstoneTorchBlock {
     public CalibratedRedstoneWallTorch() {
         super(FabricBlockSettings.copyOf(Blocks.REDSTONE_WALL_TORCH).luminance(Utility::getCalibratedRedstoneTorchLightLevel));
-        setDefaultState(getDefaultState().with(Properties.POWER, 1));
+        setDefaultState(getDefaultState().with(Properties.POWER, 15));
     }
 
     @Override
