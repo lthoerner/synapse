@@ -1,12 +1,9 @@
 package com.lthoerner.synapse.blocks;
 
 import com.lthoerner.synapse.Synapse;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundCategory;
@@ -27,20 +24,8 @@ public class ModBlocks {
     public static final Block CALIBRATED_REDSTONE_TORCH = registerBlock("calibrated_redstone_torch", new CalibratedRedstoneTorch());
     public static final Block CALIBRATED_REDSTONE_WALL_TORCH = registerBlock("calibrated_redstone_wall_torch", new CalibratedRedstoneWallTorch());
 
-    private static void addBlocks(FabricItemGroupEntries entries) {
-        entries.add(CALIBRATED_REDSTONE_BLOCK);
-        entries.add(CALIBRATED_REDSTONE_TORCH);
-        entries.add(CALIBRATED_REDSTONE_WALL_TORCH);
-    }
-
     private static Block registerBlock(String name, Block block) {
         return Registry.register(Registries.BLOCK, new Identifier(Synapse.MOD_ID, name), block);
-    }
-
-    public static void registerModBlocks() {
-        Synapse.LOGGER.info("Registering Synapse blocks");
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(ModBlocks::addBlocks);
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(ModBlocks::addBlocks);
     }
 }
 
@@ -62,15 +47,7 @@ class CalibratedRedstoneBlock extends RedstoneBlock {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (world.isClient) {
-            return ActionResult.SUCCESS;
-        }
-
-        state = state.cycle(Properties.POWER);
-        world.setBlockState(pos, state, Block.NOTIFY_ALL);
-        world.playSoundAtBlockCenter(pos, SoundEvents.BLOCK_NOTE_BLOCK_COW_BELL.value(), SoundCategory.BLOCKS, 0.5f, 0.5f, false);
-
-        return ActionResult.SUCCESS;
+        return Utility.calibratedRedstoneUseHandler(state, world, pos);
     }
 }
 
@@ -102,7 +79,7 @@ class CalibratedRedstoneTorch extends RedstoneTorchBlock {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        return Utility.calibratedRedstoneTorchUseHandler(state, world, pos);
+        return Utility.calibratedRedstoneUseHandler(state, world, pos);
     }
 }
 
@@ -135,21 +112,22 @@ class CalibratedRedstoneWallTorch extends WallRedstoneTorchBlock {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        return Utility.calibratedRedstoneTorchUseHandler(state, world, pos);
+        return Utility.calibratedRedstoneUseHandler(state, world, pos);
     }
 }
 
 class Utility {
-    protected static ActionResult calibratedRedstoneTorchUseHandler(BlockState state, World world, BlockPos pos) {
-        // TODO: Consider preventing calibration while torch is unpowered
+    protected static ActionResult calibratedRedstoneUseHandler(BlockState state, World world, BlockPos pos) {
+        // TODO: Consider preventing calibration for torches while unpowered
         if (world.isClient) {
+            float pitch = state.cycle(Properties.POWER).get(Properties.POWER) == 0 ? 0.5f : 0.6f;
+            world.playSoundAtBlockCenter(pos, SoundEvents.BLOCK_COMPARATOR_CLICK, SoundCategory.BLOCKS, 0.3f, pitch, true);
             return ActionResult.SUCCESS;
         }
 
-        // The LIT property is not cycled here because it is handled by the `shouldUnpower` methods.
+        // The LIT property for torches is not cycled here because it is handled by the `shouldUnpower` methods.
         state = state.cycle(Properties.POWER);
         world.setBlockState(pos, state, Block.NOTIFY_ALL);
-        world.playSoundAtBlockCenter(pos, SoundEvents.BLOCK_NOTE_BLOCK_COW_BELL.value(), SoundCategory.BLOCKS, 0.5f, 0.5f, true);
 
         return ActionResult.SUCCESS;
     }

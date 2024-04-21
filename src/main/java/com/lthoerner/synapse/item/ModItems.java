@@ -16,12 +16,16 @@ public class ModItems {
     public static final Item CALIBRATED_REDSTONE_BLOCK = registerBlockItem("calibrated_redstone_block", ModBlocks.CALIBRATED_REDSTONE_BLOCK);
     public static final Item CALIBRATED_REDSTONE_TORCH = registerVerticallyAttachableBlockItem("calibrated_redstone_torch", ModBlocks.CALIBRATED_REDSTONE_TORCH, ModBlocks.CALIBRATED_REDSTONE_WALL_TORCH);
 
-    private static void registerRedstoneItems(FabricItemGroupEntries entries) {
+    private static void setupRedstoneItems(FabricItemGroupEntries entries) {
         entries.addAfter(Items.REDSTONE_BLOCK, CALIBRATED_REDSTONE_TORCH, CALIBRATED_REDSTONE_BLOCK);
     }
 
-    private static void registerFunctionalItems(FabricItemGroupEntries entries) {
+    private static void setupFunctionalItems(FabricItemGroupEntries entries) {
         entries.addAfter(Items.REDSTONE_TORCH, CALIBRATED_REDSTONE_TORCH);
+    }
+
+    private static void setupBuildingBlockItems(FabricItemGroupEntries entries) {
+        entries.addAfter(Items.REDSTONE_BLOCK, CALIBRATED_REDSTONE_BLOCK);
     }
 
     private static Item registerItem(String name, Item item) {
@@ -36,9 +40,10 @@ public class ModItems {
         return Registry.register(Registries.ITEM, new Identifier(Synapse.MOD_ID, name), new VerticallyAttachableBlockItem(block, verticallyAttachableBlock, new FabricItemSettings(), Direction.DOWN));
     }
 
-    public static void registerModItems() {
+    public static void setupItemGroups() {
         Synapse.LOGGER.info("Registering Synapse items");
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(ModItems::registerRedstoneItems);
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(ModItems::registerFunctionalItems);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(ModItems::setupRedstoneItems);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(ModItems::setupFunctionalItems);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(ModItems::setupBuildingBlockItems);
     }
 }

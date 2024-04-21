@@ -1,6 +1,5 @@
 package com.lthoerner.synapse;
 
-import com.lthoerner.synapse.blocks.ModBlocks;
 import com.lthoerner.synapse.item.ModItems;
 import net.fabricmc.api.ModInitializer;
 
@@ -15,7 +14,6 @@ public class Synapse implements ModInitializer {
     public void onInitialize() {
         LOGGER.info("Synapse v0.0.1+1.20.4");
 
-        ModItems.registerModItems();
-        ModBlocks.registerModBlocks();
+        ModItems.setupItemGroups();
     }
 }
