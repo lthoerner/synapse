@@ -6,10 +6,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroups;
-import net.minecraft.item.VerticallyAttachableBlockItem;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -19,9 +16,12 @@ public class ModItems {
     public static final Item CALIBRATED_REDSTONE_BLOCK = registerBlockItem("calibrated_redstone_block", ModBlocks.CALIBRATED_REDSTONE_BLOCK);
     public static final Item CALIBRATED_REDSTONE_TORCH = registerVerticallyAttachableBlockItem("calibrated_redstone_torch", ModBlocks.CALIBRATED_REDSTONE_TORCH, ModBlocks.CALIBRATED_REDSTONE_WALL_TORCH);
 
-    private static void registerItemGroups(FabricItemGroupEntries entries) {
-        entries.add(CALIBRATED_REDSTONE_BLOCK);
-        entries.add(CALIBRATED_REDSTONE_TORCH);
+    private static void registerRedstoneItems(FabricItemGroupEntries entries) {
+        entries.addAfter(Items.REDSTONE_BLOCK, CALIBRATED_REDSTONE_TORCH, CALIBRATED_REDSTONE_BLOCK);
+    }
+
+    private static void registerFunctionalItems(FabricItemGroupEntries entries) {
+        entries.addAfter(Items.REDSTONE_TORCH, CALIBRATED_REDSTONE_TORCH);
     }
 
     private static Item registerItem(String name, Item item) {
@@ -38,6 +38,7 @@ public class ModItems {
 
     public static void registerModItems() {
         Synapse.LOGGER.info("Registering Synapse items");
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(ModItems::registerItemGroups);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(ModItems::registerRedstoneItems);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(ModItems::registerFunctionalItems);
     }
 }
