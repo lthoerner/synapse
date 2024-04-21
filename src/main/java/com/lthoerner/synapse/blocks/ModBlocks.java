@@ -53,7 +53,7 @@ class CalibratedRedstoneBlock extends RedstoneBlock {
 
 class CalibratedRedstoneTorch extends RedstoneTorchBlock {
     public CalibratedRedstoneTorch() {
-        super(FabricBlockSettings.copyOf(Blocks.REDSTONE_TORCH));
+        super(FabricBlockSettings.copyOf(Blocks.REDSTONE_TORCH).luminance(Utility::getCalibratedRedstoneTorchLightLevel));
         setDefaultState(getDefaultState().with(Properties.POWER, 1));
     }
 
@@ -85,7 +85,7 @@ class CalibratedRedstoneTorch extends RedstoneTorchBlock {
 
 class CalibratedRedstoneWallTorch extends WallRedstoneTorchBlock {
     public CalibratedRedstoneWallTorch() {
-        super(FabricBlockSettings.copyOf(Blocks.REDSTONE_WALL_TORCH));
+        super(FabricBlockSettings.copyOf(Blocks.REDSTONE_WALL_TORCH).luminance(Utility::getCalibratedRedstoneTorchLightLevel));
         setDefaultState(getDefaultState().with(Properties.POWER, 1));
     }
 
@@ -130,5 +130,14 @@ class Utility {
         world.setBlockState(pos, state, Block.NOTIFY_ALL);
 
         return ActionResult.SUCCESS;
+    }
+
+    protected static int getCalibratedRedstoneTorchLightLevel(BlockState state) {
+        if (state.get(Properties.LIT)) {
+            int powerLevel = state.get(Properties.POWER);
+            return Math.min(9, powerLevel / 2 + 2);
+        }
+
+        return 0;
     }
 }
