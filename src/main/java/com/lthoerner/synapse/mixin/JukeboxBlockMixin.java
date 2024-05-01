@@ -16,7 +16,7 @@ public abstract class JukeboxBlockMixin {
             method = "getWeakRedstonePower(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/Direction;)I",
             at = @At("RETURN")
     )
-    private int preventHopperPower(int original, BlockState state, BlockView world, BlockPos pos, Direction direction) {
+    private int synapse$preventHopperPower(int original, BlockState state, BlockView world, BlockPos pos, Direction direction) {
         // The return value is always either 0 or 15.
         if (original != 15) {
             return 0;
