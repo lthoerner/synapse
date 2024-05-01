@@ -1,40 +1,40 @@
 {
-	"schemaVersion": 1,
-	"id": "synapse",
-	"version": "${version}",
-	"name": "Synapse",
-	"description": "Vanilla-like redstone enhancement/overhaul mod for Fabric.",
-	"authors": [
-		"lthoerner"
-	],
-	"contact": {
-		"homepage": "https://code.lthoerner.com/synapse",
-		"sources": "https://code.lthoerner.com/synapse"
-	},
-	"license": "GPLv3",
-	"icon": "assets/synapse/icon.png",
-	"environment": "*",
-	"entrypoints": {
-		"main": [
-			"com.lthoerner.synapse.Synapse"
-		],
-		"client": [
-			"com.lthoerner.synapse.SynapseClient"
-		],
-		"fabric-datagen": [
-			"com.lthoerner.synapse.SynapseDataGenerator"
-		]
-	},
-	"mixins": [
-		"synapse.mixins.json"
-	],
-	"depends": {
-		"fabricloader": ">=0.15.10",
-		"minecraft": "~1.20.4",
-		"java": ">=17",
-		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
-	}
+  "schemaVersion": 1,
+  "id": "synapse",
+  "version": "${version}",
+  "name": "Synapse",
+  "description": "Vanilla-like redstone enhancement/overhaul mod for Fabric.",
+  "authors": [
+    "lthoerner"
+  ],
+  "contact": {
+    "homepage": "https://code.lthoerner.com/synapse",
+    "sources": "https://code.lthoerner.com/synapse"
+  },
+  "license": "GPLv3",
+  "icon": "assets/synapse/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.lthoerner.synapse.Synapse"
+    ],
+    "client": [
+      "com.lthoerner.synapse.SynapseClient"
+    ],
+    "fabric-datagen": [
+      "com.lthoerner.synapse.SynapseDataGenerator"
+    ]
+  },
+  "mixins": [
+    "synapse.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.10",
+    "minecraft": "~1.20.4",
+    "java": ">=17",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
 }
