@@ -22,7 +22,7 @@ public abstract class JukeboxBlockMixin {
             return 0;
         }
 
-        if (direction == Direction.UP && world.getBlockState(pos.down(1)).getBlock() instanceof HopperBlock) return 0;
+        if (direction == Direction.UP && world.getBlockState(pos.down()).getBlock() instanceof HopperBlock) return 0;
             else return 15;
     }
 }
