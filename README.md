@@ -6,12 +6,12 @@ in a way that does not majorly diverge from the vanilla redstone experience. You
 
 ## Current Features
 - "Calibrated" torches and redstone blocks that output a specific constant signal strength
-- More sensible music disc signal strength values
+- More sensible music disc signal strength values 
+- Jukeboxes do not lock hoppers under them while playing
+- Jukeboxes can be silenced
 
 ## Planned Features
-- Jukeboxes that do not lock hoppers under them while playing
-- Jukeboxes that can be silenced
-- Dispensers that fill and empty cauldrons with buckets
+- Dispensers fill and empty cauldrons with buckets
 - Powered detector rail hybrid so minecarts can be read and sent from the same rail
 - Ender chests that can be configured to a particular player in order to work with hoppers and other storage tech
 - Some component or block that stores an input signal strength when powered (locked comparators?)
