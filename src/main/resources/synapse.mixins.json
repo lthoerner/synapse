@@ -5,7 +5,9 @@
   "mixins": [
     "ItemsMixin",
     "JukeboxBlockMixin",
-    "JukeboxBlockEntityMixin"
+    "JukeboxBlockEntityMixin",
+    "HopperBlockEntityMixin",
+    "HopperBlockEntityAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
