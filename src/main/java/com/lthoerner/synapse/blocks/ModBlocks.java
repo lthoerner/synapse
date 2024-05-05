@@ -11,7 +11,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -46,7 +45,7 @@ class CalibratedRedstoneBlock extends RedstoneBlock {
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity entity, BlockHitResult hit) {
         return Utility.calibratedRedstoneUseHandler(state, world, pos);
     }
 }
@@ -78,7 +77,7 @@ class CalibratedRedstoneTorch extends RedstoneTorchBlock {
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity entity, BlockHitResult hit) {
         return Utility.calibratedRedstoneUseHandler(state, world, pos);
     }
 }
@@ -111,7 +110,7 @@ class CalibratedRedstoneWallTorch extends WallRedstoneTorchBlock {
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity entity, BlockHitResult hit) {
         return Utility.calibratedRedstoneUseHandler(state, world, pos);
     }
 }

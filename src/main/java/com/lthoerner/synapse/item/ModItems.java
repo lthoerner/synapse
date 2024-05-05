@@ -2,7 +2,6 @@ package com.lthoerner.synapse.item;
 
 import com.lthoerner.synapse.Synapse;
 import com.lthoerner.synapse.blocks.ModBlocks;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.Block;
@@ -33,11 +32,11 @@ public class ModItems {
     }
 
     private static Item registerBlockItem(String name, Block block) {
-        return Registry.register(Registries.ITEM, new Identifier(Synapse.MOD_ID, name), new BlockItem(block, new FabricItemSettings()));
+        return Registry.register(Registries.ITEM, new Identifier(Synapse.MOD_ID, name), new BlockItem(block, new Item.Settings()));
     }
 
     private static Item registerVerticallyAttachableBlockItem(String name, Block block, Block verticallyAttachableBlock) {
-        return Registry.register(Registries.ITEM, new Identifier(Synapse.MOD_ID, name), new VerticallyAttachableBlockItem(block, verticallyAttachableBlock, new FabricItemSettings(), Direction.DOWN));
+        return Registry.register(Registries.ITEM, new Identifier(Synapse.MOD_ID, name), new VerticallyAttachableBlockItem(block, verticallyAttachableBlock, new Item.Settings(), Direction.DOWN));
     }
 
     public static void setupItemGroups() {
