@@ -2,7 +2,6 @@ package com.lthoerner.synapse;
 
 import com.lthoerner.synapse.item.ModItems;
 import net.fabricmc.api.ModInitializer;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +11,7 @@ public class Synapse implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        LOGGER.info("Synapse v0.0.1+1.20.4");
+        LOGGER.info("Synapse v0.0.3+1.20.6");
 
         ModItems.setupItemGroups();
     }
