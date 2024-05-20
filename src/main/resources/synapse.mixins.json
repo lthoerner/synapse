@@ -3,11 +3,13 @@
   "package": "com.lthoerner.synapse.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "ItemsMixin",
-    "JukeboxBlockMixin",
-    "JukeboxBlockEntityMixin",
+    "HopperBlockEntityAccessor",
     "HopperBlockEntityMixin",
-    "HopperBlockEntityAccessor"
+    "HopperBlockMixin",
+    "ItemsMixin",
+    "JukeboxBlockEntityMixin",
+    "JukeboxBlockMixin",
+    "PropertiesMixin"
   ],
   "injectors": {
     "defaultRequire": 1
