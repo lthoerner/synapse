@@ -8,7 +8,6 @@
     "HopperBlockMixin",
     "ItemsMixin",
     "JukeboxBlockEntityMixin",
-    "JukeboxBlockMixin",
     "PropertiesMixin"
   ],
   "injectors": {
