@@ -65,6 +65,4 @@ public abstract class HopperBlockMixin {
             info.setReturnValue(UP_RAYCAST_SHAPE);
         }
     }
-
-
 }
