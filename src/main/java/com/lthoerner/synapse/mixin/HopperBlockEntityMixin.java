@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.Hopper;
 import net.minecraft.block.entity.HopperBlockEntity;
+import net.minecraft.block.enums.BlockHalf;
 import net.minecraft.entity.Entity;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
@@ -43,7 +44,7 @@ public abstract class HopperBlockEntityMixin {
         BlockPos hopperPos = BlockPos.ofFloored(hopper.getHopperX(), originalY, hopper.getHopperZ());
         BlockState hopperState = world.getBlockState(hopperPos);
         // Need to subtract 2 here instead of 1 because the vanilla code adds 1 to the result of this call
-        if (hopperState.get(Properties.FACING) == Direction.UP) return originalY - 2.0;
+        if (hopperState.get(Properties.BLOCK_HALF) == BlockHalf.BOTTOM) return originalY - 2.0;
         else return originalY;
     }
 
@@ -60,7 +61,7 @@ public abstract class HopperBlockEntityMixin {
         BlockPos hopperPos = BlockPos.ofFloored(hopper.getHopperX(), originalY, hopper.getHopperZ());
         BlockState hopperState = world.getBlockState(hopperPos);
         // Need to subtract 2 here instead of 1 because the vanilla code adds 1 to the result of this call
-        if (hopperState.get(Properties.FACING) == Direction.UP) return originalY - 2.0;
+        if (hopperState.get(Properties.BLOCK_HALF) == BlockHalf.BOTTOM) return originalY - 2.0;
         else return originalY;
     }
 
@@ -71,7 +72,7 @@ public abstract class HopperBlockEntityMixin {
     private static Box synapse$getUpHopperInputAreaShapeForItemEntityCheck(Box original, World world, Hopper hopper) {
         BlockPos hopperPos = BlockPos.ofFloored(hopper.getHopperX(), hopper.getHopperY(), hopper.getHopperZ());
         BlockState hopperState = world.getBlockState(hopperPos);
-        if (hopperState.get(Properties.FACING) == Direction.UP) return INPUT_AREA_SHAPE_FLIPPED;
+        if (hopperState.get(Properties.BLOCK_HALF) == BlockHalf.BOTTOM) return INPUT_AREA_SHAPE_FLIPPED;
         else return original;
     }
 
@@ -80,7 +81,7 @@ public abstract class HopperBlockEntityMixin {
             at = @At(value = "INVOKE", target = "net/minecraft/block/entity/HopperBlockEntity.getInputAreaShape ()Lnet/minecraft/util/math/Box;")
     )
     private static Box synapse$getUpHopperInputAreaShapeForEntityCollision(Box original, World world, BlockPos pos, BlockState state, Entity entity, HopperBlockEntity blockEntity) {
-        if (state.get(Properties.FACING) == Direction.UP) return INPUT_AREA_SHAPE_FLIPPED;
+        if (state.get(Properties.BLOCK_HALF) == BlockHalf.BOTTOM) return INPUT_AREA_SHAPE_FLIPPED;
         else return original;
     }
 
@@ -90,7 +91,7 @@ public abstract class HopperBlockEntityMixin {
     )
     private static BlockPos synapse$allowUpHopperExtractionBlock(BlockPos original, World world, Hopper hopper) {
         BlockPos hopperPos = BlockPos.ofFloored(hopper.getHopperX(), hopper.getHopperY(), hopper.getHopperZ());
-        if (world.getBlockState(hopperPos).get(Properties.FACING) == Direction.UP) return hopperPos.down();
+        if (world.getBlockState(hopperPos).get(Properties.BLOCK_HALF) == BlockHalf.BOTTOM) return hopperPos.down();
         else return hopperPos.up();
     }
 
@@ -100,7 +101,7 @@ public abstract class HopperBlockEntityMixin {
     )
     private static Direction synapse$allowUpHopperExtractionDirection(Direction original, World world, Hopper hopper) {
         BlockPos hopperPos = BlockPos.ofFloored(hopper.getHopperX(), hopper.getHopperY(), hopper.getHopperZ());
-        if (world.getBlockState(hopperPos).get(Properties.FACING) == Direction.UP)
+        if (world.getBlockState(hopperPos).get(Properties.BLOCK_HALF) == BlockHalf.BOTTOM)
             return Direction.UP;
         else return Direction.DOWN;
     }
