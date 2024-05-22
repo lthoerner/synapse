@@ -4,6 +4,7 @@ import com.bawnorton.mixinsquared.TargetHandler;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.HopperBlock;
 import net.minecraft.block.entity.Hopper;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.block.enums.BlockHalf;
@@ -41,6 +42,8 @@ public abstract class HopperBlockEntityMixin {
             at = @At(value = "INVOKE", target = "net/minecraft/block/entity/Hopper.getHopperY ()D")
     )
     private static double synapse$getUpHopperInputInventoryVanilla(double originalY, World world, Hopper hopper, BlockPos pos, BlockState state) {
+        if (isMinecartTrack(world, hopper)) return originalY;
+
         BlockPos hopperPos = BlockPos.ofFloored(hopper.getHopperX(), originalY, hopper.getHopperZ());
         BlockState hopperState = world.getBlockState(hopperPos);
         // Need to subtract 2 here instead of 1 because the vanilla code adds 1 to the result of this call
@@ -58,6 +61,8 @@ public abstract class HopperBlockEntityMixin {
             at = @At(value = "INVOKE", target = "net/minecraft/block/entity/Hopper.getHopperY ()D")
     )
     private static double synapse$getUpHopperInputInventoryFabric(double originalY, World world, Hopper hopper, CallbackInfoReturnable cir) {
+        if (isMinecartTrack(world, hopper)) return originalY;
+
         BlockPos hopperPos = BlockPos.ofFloored(hopper.getHopperX(), originalY, hopper.getHopperZ());
         BlockState hopperState = world.getBlockState(hopperPos);
         // Need to subtract 2 here instead of 1 because the vanilla code adds 1 to the result of this call
@@ -70,6 +75,8 @@ public abstract class HopperBlockEntityMixin {
             at = @At(value = "INVOKE", target = "net/minecraft/block/entity/Hopper.getInputAreaShape ()Lnet/minecraft/util/math/Box;")
     )
     private static Box synapse$getUpHopperInputAreaShapeForItemEntityCheck(Box original, World world, Hopper hopper) {
+        if (isMinecartTrack(world, hopper)) return original;
+
         BlockPos hopperPos = BlockPos.ofFloored(hopper.getHopperX(), hopper.getHopperY(), hopper.getHopperZ());
         BlockState hopperState = world.getBlockState(hopperPos);
         if (hopperState.get(Properties.BLOCK_HALF) == BlockHalf.BOTTOM) return INPUT_AREA_SHAPE_FLIPPED;
@@ -81,6 +88,8 @@ public abstract class HopperBlockEntityMixin {
             at = @At(value = "INVOKE", target = "net/minecraft/block/entity/HopperBlockEntity.getInputAreaShape ()Lnet/minecraft/util/math/Box;")
     )
     private static Box synapse$getUpHopperInputAreaShapeForEntityCollision(Box original, World world, BlockPos pos, BlockState state, Entity entity, HopperBlockEntity blockEntity) {
+        if (isMinecartTrack(world, blockEntity)) return original;
+
         if (state.get(Properties.BLOCK_HALF) == BlockHalf.BOTTOM) return INPUT_AREA_SHAPE_FLIPPED;
         else return original;
     }
@@ -90,6 +99,8 @@ public abstract class HopperBlockEntityMixin {
             at = @At(value = "INVOKE", target = "net/minecraft/util/math/BlockPos.ofFloored (DDD)Lnet/minecraft/util/math/BlockPos;")
     )
     private static BlockPos synapse$allowUpHopperExtractionBlock(BlockPos original, World world, Hopper hopper) {
+        if (isMinecartTrack(world, hopper)) return original;
+
         BlockPos hopperPos = BlockPos.ofFloored(hopper.getHopperX(), hopper.getHopperY(), hopper.getHopperZ());
         if (world.getBlockState(hopperPos).get(Properties.BLOCK_HALF) == BlockHalf.BOTTOM) return hopperPos.down();
         else return hopperPos.up();
@@ -100,9 +111,16 @@ public abstract class HopperBlockEntityMixin {
             at = @At(value = "FIELD", target = "Lnet/minecraft/util/math/Direction;DOWN:Lnet/minecraft/util/math/Direction;", opcode = Opcodes.GETSTATIC)
     )
     private static Direction synapse$allowUpHopperExtractionDirection(Direction original, World world, Hopper hopper) {
+        if (isMinecartTrack(world, hopper)) return original;
         BlockPos hopperPos = BlockPos.ofFloored(hopper.getHopperX(), hopper.getHopperY(), hopper.getHopperZ());
         if (world.getBlockState(hopperPos).get(Properties.BLOCK_HALF) == BlockHalf.BOTTOM)
             return Direction.UP;
         else return Direction.DOWN;
+    }
+
+    @Unique
+    private static boolean isMinecartTrack(World world, Hopper hopperOrMinecartTrack) {
+        BlockPos hopperPos = BlockPos.ofFloored(hopperOrMinecartTrack.getHopperX(), hopperOrMinecartTrack.getHopperY(), hopperOrMinecartTrack.getHopperZ());
+        return !(world.getBlockState(hopperPos).getBlock() instanceof HopperBlock);
     }
 }

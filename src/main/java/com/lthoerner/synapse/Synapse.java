@@ -11,7 +11,7 @@ public class Synapse implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        LOGGER.info("Synapse v0.4.1-alpha+1.20.6");
+        LOGGER.info("Synapse v0.4.2-alpha+1.20.6");
 
         ModItems.setupItemGroups();
     }
