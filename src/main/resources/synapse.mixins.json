@@ -8,6 +8,8 @@
     "HopperBlockMixin",
     "ItemsMixin",
     "JukeboxBlockEntityMixin",
+    "LavaCauldronBlockMixin",
+    "LeveledCauldronBlockMixin",
     "PropertiesMixin"
   ],
   "injectors": {
