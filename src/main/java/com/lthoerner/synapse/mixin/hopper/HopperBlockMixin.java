@@ -1,4 +1,4 @@
-package com.lthoerner.synapse.mixin;
+package com.lthoerner.synapse.mixin.hopper;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.block.Block;
@@ -16,7 +16,6 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import org.objectweb.asm.Opcodes;
-import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;

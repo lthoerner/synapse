@@ -1,4 +1,4 @@
-package com.lthoerner.synapse.mixin;
+package com.lthoerner.synapse.mixin.jukebox;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.block.BlockState;

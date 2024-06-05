@@ -1,4 +1,4 @@
-package com.lthoerner.synapse.mixin;
+package com.lthoerner.synapse.mixin.hopper;
 
 import net.minecraft.block.entity.HopperBlockEntity;
 import org.spongepowered.asm.mixin.Mixin;

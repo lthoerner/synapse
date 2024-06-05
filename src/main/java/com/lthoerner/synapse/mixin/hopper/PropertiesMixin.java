@@ -1,4 +1,4 @@
-package com.lthoerner.synapse.mixin;
+package com.lthoerner.synapse.mixin.hopper;
 
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;

@@ -1,4 +1,4 @@
-package com.lthoerner.synapse.mixin;
+package com.lthoerner.synapse.mixin.cauldron_dispenser;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;

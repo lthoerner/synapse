@@ -1,4 +1,4 @@
-package com.lthoerner.synapse.mixin;
+package com.lthoerner.synapse.mixin.jukebox;
 
 import net.minecraft.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
