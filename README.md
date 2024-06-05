@@ -9,10 +9,10 @@ in a way that does not majorly diverge from the vanilla redstone experience. You
 - More sensible music disc signal strength values
 - Jukeboxes can be silenced and subsequently do not lock hoppers under th em when discs are inserted
 - Hoppers that face up and transfer items every tick (8x faster than vanilla)
+- Dispensers fill and empty cauldrons with buckets
 
 ## Planned Features
 ### Definite Features
-- Dispensers fill and empty cauldrons with buckets
 - Powered detector rail hybrid so minecarts can be read and sent from the same rail
 - Minecart gate that can be toggled with redstone
 - Improved item transportation (splitting, filtering, maybe even-distribution)
