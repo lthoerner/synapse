@@ -26,10 +26,10 @@ public abstract class PowderSnowBucketItemMixin {
 
     @Inject(
             method = "placeFluid(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/hit/BlockHitResult;)Z",
-            at = @At(value = "HEAD"),
+            at = @At("HEAD"),
             cancellable = true
     )
-    private void synapse$allowDispenserSnowPlacementInCauldron(PlayerEntity player, World world, BlockPos pos, BlockHitResult hitResult, CallbackInfoReturnable<Boolean> cir) {
+    private void allowDispenserSnowPlacementInCauldron(PlayerEntity player, World world, BlockPos pos, BlockHitResult hitResult, CallbackInfoReturnable<Boolean> cir) {
         if (world.isInBuildLimit(pos) && world.getBlockState(pos).getBlock() == Blocks.CAULDRON) {
             if (!world.isClient) {
                 world.setBlockState(pos, Blocks.POWDER_SNOW_CAULDRON.getDefaultState().with(Properties.LEVEL_3, 3), Block.NOTIFY_ALL);

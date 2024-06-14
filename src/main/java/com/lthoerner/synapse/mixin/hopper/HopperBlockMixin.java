@@ -59,9 +59,9 @@ public abstract class HopperBlockMixin {
 
     @Inject(
             method = "appendProperties(Lnet/minecraft/state/StateManager$Builder;)V",
-            at = @At(value = "TAIL")
+            at = @At("TAIL")
     )
-    private void synapse$addBlockHalfHopperProperty(StateManager.Builder<Block, BlockState> builder, CallbackInfo info) {
+    private void addBlockHalfHopperProperty(StateManager.Builder<Block, BlockState> builder, CallbackInfo info) {
         builder.add(Properties.BLOCK_HALF);
     }
 
@@ -70,7 +70,7 @@ public abstract class HopperBlockMixin {
             at = @At(value = "INVOKE", target = "net/minecraft/block/HopperBlock.setDefaultState (Lnet/minecraft/block/BlockState;)V"),
             index = 0
     )
-    private BlockState synapse$addBlockHalfHopperDefaultState(BlockState original) {
+    private BlockState addBlockHalfHopperDefaultState(BlockState original) {
         return original.with(Properties.BLOCK_HALF, BlockHalf.TOP);
     }
 
@@ -78,7 +78,7 @@ public abstract class HopperBlockMixin {
             method = "getPlacementState(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/block/BlockState;",
             at = @At(value = "FIELD", target = "Lnet/minecraft/util/math/Direction;DOWN:Lnet/minecraft/util/math/Direction;", opcode = Opcodes.GETSTATIC)
     )
-    private Direction synapse$allowVerticalPlacement(Direction original, ItemPlacementContext ctx) {
+    private Direction allowVerticalPlacement(Direction original, ItemPlacementContext ctx) {
         return ctx.getSide().getOpposite();
     }
 
@@ -86,7 +86,7 @@ public abstract class HopperBlockMixin {
             method = "getPlacementState(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/block/BlockState;",
             at = @At(value = "INVOKE", target = "net/minecraft/block/HopperBlock.getDefaultState ()Lnet/minecraft/block/BlockState;")
     )
-    private BlockState synapse$addPlacementBlockHalf(BlockState original, ItemPlacementContext ctx) {
+    private BlockState addPlacementBlockHalf(BlockState original, ItemPlacementContext ctx) {
         double placementVerticalPos = ctx.getHitPos().y - ctx.getBlockPos().getY();
         // The block half is inverted because a downward-facing hopper has block half TOP (the block half is the half
         // that represents the input of the hopper)
@@ -95,28 +95,28 @@ public abstract class HopperBlockMixin {
 
     @Inject(
             method = "getOutlineShape(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/ShapeContext;)Lnet/minecraft/util/shape/VoxelShape;",
-            at = @At(value = "HEAD"),
+            at = @At("HEAD"),
             cancellable = true
     )
-    private void synapse$addUpHopperOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context, CallbackInfoReturnable<VoxelShape> info) {
+    private void addUpHopperOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context, CallbackInfoReturnable<VoxelShape> info) {
         if (state.get(Properties.BLOCK_HALF) == BlockHalf.BOTTOM) {
-            info.setReturnValue(synapse$getHopperShape(state.get(HopperBlock.FACING), false));
+            info.setReturnValue(getHopperShape(state.get(HopperBlock.FACING), false));
         }
     }
 
     @Inject(
             method = "getRaycastShape(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/util/shape/VoxelShape;",
-            at = @At(value = "HEAD"),
+            at = @At("HEAD"),
             cancellable = true
     )
-    private void synapse$addUpHopperRaycastShape(BlockState state, BlockView world, BlockPos pos, CallbackInfoReturnable<VoxelShape> info) {
+    private void addUpHopperRaycastShape(BlockState state, BlockView world, BlockPos pos, CallbackInfoReturnable<VoxelShape> info) {
         if (state.get(Properties.BLOCK_HALF) == BlockHalf.BOTTOM) {
-            info.setReturnValue(synapse$getHopperShape(state.get(HopperBlock.FACING), true));
+            info.setReturnValue(getHopperShape(state.get(HopperBlock.FACING), true));
         }
     }
 
     @Unique
-    private static VoxelShape synapse$getHopperShape(Direction facing, boolean raycast) {
+    private static VoxelShape getHopperShape(Direction facing, boolean raycast) {
         return switch (facing) {
             case UP -> raycast ? UP_RAYCAST_SHAPE : UP_SHAPE;
             case NORTH -> raycast ? NORTH_RAYCAST_SHAPE_FLIPPED : NORTH_SHAPE_FLIPPED;

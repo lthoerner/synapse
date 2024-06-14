@@ -20,10 +20,10 @@ public abstract class JukeboxBlockEntityMixin extends BlockEntity {
 
     @Inject(
             method = "startPlaying()V",
-            at = @At(value = "HEAD"),
+            at = @At("HEAD"),
             cancellable = true
     )
-    private void synapse$doNotStartSongIfBlockAbove(CallbackInfo info) {
+    private void doNotStartSongIfBlockAbove(CallbackInfo info) {
         if (world != null && world.getBlockState(pos.up()).isSolidBlock(world, pos.up())) {
             info.cancel();
         }
@@ -33,7 +33,7 @@ public abstract class JukeboxBlockEntityMixin extends BlockEntity {
             method = "tick(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)V",
             at = @At(value = "INVOKE", target = "net/minecraft/block/entity/JukeboxBlockEntity.isSongFinished (Lnet/minecraft/item/MusicDiscItem;)Z")
     )
-    private boolean synapse$stopSongIfBlockAbove(boolean original, World world, BlockPos pos, BlockState state) {
+    private boolean stopSongIfBlockAbove(boolean original, World world, BlockPos pos, BlockState state) {
         return original || world.getBlockState(pos.up()).isSolidBlock(world, pos.up());
     }
 }

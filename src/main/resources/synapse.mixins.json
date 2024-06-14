@@ -3,17 +3,18 @@
   "package": "com.lthoerner.synapse.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "calibrated_redstone.RedstoneViewMixin",
     "cauldron_dispenser.BucketItemMixin",
     "cauldron_dispenser.CauldronBlockMixin",
-    "hopper.HopperBlockEntityAccessor",
-    "hopper.HopperBlockEntityMixin",
-    "hopper.HopperBlockMixin",
-    "jukebox.ItemsMixin",
-    "jukebox.JukeboxBlockEntityMixin",
     "cauldron_dispenser.LavaCauldronBlockMixin",
     "cauldron_dispenser.LeveledCauldronBlockMixin",
     "cauldron_dispenser.PowderSnowBucketItemMixin",
-    "hopper.PropertiesMixin"
+    "hopper.HopperBlockEntityAccessor",
+    "hopper.HopperBlockEntityMixin",
+    "hopper.HopperBlockMixin",
+    "hopper.PropertiesMixin",
+    "jukebox.ItemsMixin",
+    "jukebox.JukeboxBlockEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

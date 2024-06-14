@@ -39,7 +39,7 @@ public abstract class ItemsMixin {
             at = @At(value = "INVOKE", target = "net/minecraft/item/MusicDiscItem.<init> (ILnet/minecraft/sound/SoundEvent;Lnet/minecraft/item/Item$Settings;I)V"),
             index = 0
     )
-    private static int synapse$editMusicDiscSignalStrength1(int original) {
+    private static int editMusicDiscSignalStrength1(int original) {
         switch (original) {
             case 1: return 13;
             case 5: return 0;
@@ -57,7 +57,7 @@ public abstract class ItemsMixin {
             at = @At(value = "INVOKE", target = "net/minecraft/item/MusicDiscItem.<init> (ILnet/minecraft/sound/SoundEvent;Lnet/minecraft/item/Item$Settings;I)V"),
             index = 0
     )
-    private static int synapse$editMusicDiscSignalStrength2(int original) {
+    private static int editMusicDiscSignalStrength2(int original) {
         switch (original) {
             case 13: return 15;
             case 15: return 5;

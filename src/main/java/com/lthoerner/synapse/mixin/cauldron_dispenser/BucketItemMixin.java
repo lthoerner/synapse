@@ -18,7 +18,7 @@ public abstract class BucketItemMixin {
             method = "placeFluid(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/hit/BlockHitResult;)Z",
             at = @At(value = "FIELD", target = "net/minecraft/item/BucketItem.fluid : Lnet/minecraft/fluid/Fluid;", ordinal = 4)
     )
-    private Fluid synapse$allowFluidsForCauldron(Fluid original, PlayerEntity player, World world, BlockPos pos, BlockHitResult hitResult) {
+    private Fluid allowFluidsForCauldron(Fluid original, PlayerEntity player, World world, BlockPos pos, BlockHitResult hitResult) {
         if (world.getBlockState(pos).getBlock() == Blocks.CAULDRON && original == Fluids.WATER || original == Fluids.LAVA) {
             // This return value bypasses a guard clause which would otherwise prevent a dispenser from filling a
             // cauldron with anything but water.
